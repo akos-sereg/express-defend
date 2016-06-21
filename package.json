@@ -1,11 +1,11 @@
 {
   "name": "express-defend",
-  "description": "Express middleware that detects malicious requests",
+  "description": "Express middleware that detects malicious requests, like XSS or Path Traversal",
   "author": {
     "name": "Akos Sereg",
     "email": "akos.sereg@gmail.com"
   },
-  "version": "1.0.2",
+  "version": "1.0.3",
   "homepage": "https://github.com/akos-sereg/express-defend",
   "repository": "akos-sereg/express-defend",
   "license" : "MIT",
