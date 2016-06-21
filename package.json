@@ -1,0 +1,30 @@
+{
+  "name": "express-defend",
+  "description": "Express middleware that detects malicious requests",
+  "author": {
+    "name": "Akos Sereg",
+    "email": "akos.sereg@gmail.com"
+  },
+  "version": "1.0.0",
+  "homepage": "https://github.com/akos-sereg/express-defend",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/akos-sereg/express-defend.git"
+  },
+  "license" : "MIT",
+  "main": "./index.js",
+  "scripts": {
+  },
+  "engines": {
+    "node": "*"
+  },
+  "dependencies": {
+    "chalk": "~1.1.3"
+  },
+  "keywords": [
+    "express", "xss", "cross-site-scripting", "cross site scripting"
+  ],
+  "bugs": {
+    "url": "https://github.com/akos-sereg/express-defend/issues"
+  }
+}
