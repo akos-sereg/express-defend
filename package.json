@@ -5,12 +5,9 @@
     "name": "Akos Sereg",
     "email": "akos.sereg@gmail.com"
   },
-  "version": "1.0.0",
+  "version": "1.0.2",
   "homepage": "https://github.com/akos-sereg/express-defend",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/akos-sereg/express-defend.git"
-  },
+  "repository": "akos-sereg/express-defend",
   "license" : "MIT",
   "main": "./index.js",
   "scripts": {
