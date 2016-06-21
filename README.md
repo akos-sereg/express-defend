@@ -1,8 +1,8 @@
 # express-defend
 
-NodeJS Express middleware that detects malicious requests on your site, like:
-http://<your website>/?username=tom<script>alert('hello world')</script>
-http://<your website>/?path=../../etc/passwd
+NodeJS Express middleware that detects malicious requests on your site, like:__
+http://<your website>/?username=tom<script>alert('hello world')</script>__
+http://<your website>/?path=../../etc/passwd__
 
 # Usage
 
