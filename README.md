@@ -25,13 +25,6 @@ app.use(expressDefend.protect({
 ```
 
 Above example in action
-```
-root@sauron:/home/akoss/dev/cashflow# nodejs server.js
-Cashflow server listening on port 3009
-[express-defend] Suspicious Request /page.html?name=%3Cscript%3Ealert(%27hello%27)%3C/script%3E, fragment is on blacklist: "<script"" from ::ffff:192.168.1.121
-[express-defend] Suspicious Request /page.html?path=/etc/passwd, fragment is on blacklist: "/etc/passwd"" from ::ffff:192.168.1.121
-[express-defend] Suspicious Request /page.html?path=../etc/passwd, fragment is on blacklist: "../"" from ::ffff:192.168.1.121
-[express-defend] Suspicious Request /page.html?path=../../etc/passwd, fragment is on blacklist: "../"" from ::ffff:192.168.1.121
-IP address ::ffff:192.168.1.121 is considered to be malicious
-[express-defend] Dropping request /page.html?path=../../../etc/passwd from ::ffff:192.168.1.121
-```
+
+![Screenshot](https://raw.githubusercontent.com/akos-sereg/express-defend/master/doc/sample.png "Above example in action")
+
