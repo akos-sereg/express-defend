@@ -1,4 +1,6 @@
-# express-defend
+# express-defend [![Build Status](https://travis-ci.org/akos-sereg/express-defend.png)](https://travis-ci.org/akos-sereg/express-defend)
+
+[![NPM](https://nodei.co/npm/express-defend.png?downloads=true&stars=true)](https://nodei.co/npm/express-defend/)
 
 NodeJS Express middleware that detects malicious requests on your site (originated from automated website vulnerability scanner, or an attacker) like:<br/>
 
