@@ -1,6 +1,6 @@
 # express-defend
 
-NodeJS Express middleware that detects malicious requests on your site, like:<br/>
+NodeJS Express middleware that detects malicious requests on your site (originated from automated website vulnerability scanner, or an attacker) like:<br/>
 
 ```
 http://<your website>/page.html?name=<script>alert('hello world')</script>

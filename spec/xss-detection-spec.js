@@ -81,4 +81,18 @@ describe("Cross Site Scripting", function() {
 	expect(nextMockInvoked).toBe(false);
   });
 
+  it('is detected (\\x3cscript)', function() {
+
+  	// Arrange
+	var interceptor = expressDefend.protect({ consoleLogging: false, dropSuspiciousRequest: true, maxAttempts: 1 });
+	var request = getMaliciousRequest();
+	request.originalUrl = '/?page.html?name=\\x3cscript';
+
+	// Act
+    interceptor(request, responseMock, nextMock);
+
+    // Assert
+	expect(nextMockInvoked).toBe(false);
+  });
+
 });
