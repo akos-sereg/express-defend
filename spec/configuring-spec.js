@@ -46,6 +46,7 @@ describe("Check configuration: ", function() {
 
   	// Reset system-under-test
   	expressDefend = require('../index');
+  	expressDefend.setDefaults();
   	expressDefend.blacklistCandidates = [];
 
   	// Delete logfile if available
@@ -101,10 +102,9 @@ describe("Check configuration: ", function() {
   });
 
   it('dropSuspiciousRequest = true, drop immediately', function() {
-  
 
   	// Arrange
-	var interceptor = expressDefend.protect({ consoleLogging: false, dropSuspiciousRequest: true });
+	var interceptor = expressDefend.protect({ consoleLogging: false, dropSuspiciousRequest: true, maxAttempts: 1 });
 	var request = getMaliciousRequest();
 
 	// Act
@@ -181,6 +181,38 @@ describe("Check configuration: ", function() {
 	expect(notifiedIp).toBe('127.0.0.1');
   });
 
+  it('onMaxAttemptsReached is triggered with default configuration - on first attempt, considering x-forwarded-for header (when our server is behind a proxy)', function() {
+
+  	// Arrange
+  	var onMaxAttemptsReachedInvoked = false;
+  	var notifiedUrl;
+  	var notifiedIp;
+
+	var interceptor = expressDefend.protect({ 
+		consoleLogging: false, 
+		dropSuspiciousRequest: false, 
+		maxAttempts: 1,
+		onMaxAttemptsReached: function(ip, url) { 
+			onMaxAttemptsReachedInvoked = true; 
+			notifiedUrl = url;
+			notifiedIp = ip;
+		} 
+	});
+
+	var request = getMaliciousRequest();
+	request.connection.remoteAddress = '127.0.0.1';
+	request.headers['x-forwarded-for'] = '192.168.1.2';
+	request.originalUrl = '/page.html?<script>alert';
+
+	// Act
+    interceptor(request, responseMock, nextMock);
+
+    // Assert
+	expect(onMaxAttemptsReachedInvoked).toBe(true);
+	expect(notifiedUrl).toBe('/page.html?<script>alert');
+	expect(notifiedIp).toBe('192.168.1.2');
+  });
+
   it('onMaxAttemptsReached is triggered with default configuration - on first attempt, with dropSuspiciousRequest enabled', function() {
 
   	// Arrange
@@ -201,6 +233,28 @@ describe("Check configuration: ", function() {
 
     // Assert
 	expect(onMaxAttemptsReachedInvoked).toBe(true);
+  });
+
+  it('onMaxAttemptsReached is triggered with default configuration - on first attempt, with buggy handler', function() {
+
+  	// Arrange
+	var interceptor = expressDefend.protect({ 
+		consoleLogging: false, 
+		dropSuspiciousRequest: true, 
+		maxAttempts: 1,
+		onMaxAttemptsReached: function(ip) { 
+			throw Error('The show must go on'); 
+		} 
+	});
+
+	var request = getMaliciousRequest();
+
+	// Act
+    interceptor(request, responseMock, nextMock);
+
+    // Assert
+	// interceptor should swallow error if onMaxAttemptsReached has a bug to prevent normal flow: this handler should have 
+	// no impact on request processing.
   });
 
   it('onMaxAttemptsReached is triggered when maxAttempts is configured to be 1', function() {
