@@ -235,6 +235,30 @@ describe("Check configuration: ", function() {
 	expect(onMaxAttemptsReachedInvoked).toBe(true);
   });
 
+  it('onMaxAttemptsReached is triggered only once, when maxAttempts count is reached. no more calls later on', function() {
+
+  	// Arrange
+  	var onMaxAttemptsReachedInvokedCount = 0;
+	var interceptor = expressDefend.protect({ 
+		consoleLogging: false, 
+		dropSuspiciousRequest: false, 
+		maxAttempts: 1,
+		onMaxAttemptsReached: function(ip) { 
+			onMaxAttemptsReachedInvokedCount++;
+		} 
+	});
+
+	var request = getMaliciousRequest();
+
+	// Act
+    interceptor(request, responseMock, nextMock);
+    interceptor(request, responseMock, nextMock);
+    interceptor(request, responseMock, nextMock);
+
+    // Assert
+	expect(onMaxAttemptsReachedInvokedCount).toBe(1);
+  });
+
   it('onMaxAttemptsReached is triggered with default configuration - on first attempt, with buggy handler', function() {
 
   	// Arrange
