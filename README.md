@@ -7,7 +7,7 @@ http://<your website>/page.html?name=<script>alert('hello world')</script>
 http://<your website>/page.html?path=../../etc/passwd
 ```
 
-... and possibly blocks further suspicious requests and notifies you, based on configuration.
+... and possibly blocks further suspicious requests from attacker's host, and notifies you - based on configuration.
 
 # Usage
 
