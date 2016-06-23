@@ -20,11 +20,12 @@ Setting up your express server with express-defend support
 var expressDefend = require('express-defend');
 
 app.use(expressDefend.protect({ 
-    maxAttempts: 5,                   // number of attempts until "onMaxAttemptsReached" gets triggered
+    maxAttempts: 5,                   // (default: 5) number of attempts until "onMaxAttemptsReached" gets triggered
     dropSuspiciousRequest: true,      // respond 403 Forbidden when max attempts count is reached
+    consoleLogging: true,             // (default: true) enable console logging
     logFile: 'suspicious.log',        // if specified, express-defend will log it's output here
-    onMaxAttemptsReached: function(ipAddress){
-        console.log('IP address ' + ipAddress + ' is considered to be malicious');
+    onMaxAttemptsReached: function(ipAddress, url){
+        console.log('IP address ' + ipAddress + ' is considered to be malicious, URL: ' + url);
     } 
 }));
 ```

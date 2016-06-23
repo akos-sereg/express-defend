@@ -154,22 +154,31 @@ describe("Check configuration: ", function() {
 
   	// Arrange
   	var onMaxAttemptsReachedInvoked = false;
+  	var notifiedUrl;
+  	var notifiedIp;
+
 	var interceptor = expressDefend.protect({ 
 		consoleLogging: false, 
 		dropSuspiciousRequest: false, 
 		maxAttempts: 1,
-		onMaxAttemptsReached: function(ip) { 
+		onMaxAttemptsReached: function(ip, url) { 
 			onMaxAttemptsReachedInvoked = true; 
+			notifiedUrl = url;
+			notifiedIp = ip;
 		} 
 	});
 
 	var request = getMaliciousRequest();
+	request.connection.remoteAddress = '127.0.0.1';
+	request.originalUrl = '/page.html?<script>alert';
 
 	// Act
     interceptor(request, responseMock, nextMock);
 
     // Assert
 	expect(onMaxAttemptsReachedInvoked).toBe(true);
+	expect(notifiedUrl).toBe('/page.html?<script>alert');
+	expect(notifiedIp).toBe('127.0.0.1');
   });
 
   it('onMaxAttemptsReached is triggered with default configuration - on first attempt, with dropSuspiciousRequest enabled', function() {
