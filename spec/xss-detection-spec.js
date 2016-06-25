@@ -19,31 +19,6 @@ function getMaliciousRequest() {
 	};
 }
 
-describe("Path Traversal", function() {
- 
-  beforeEach(function() { 
-  	nextMockInvoked = false;
-
-  	// Reset system-under-test
-  	expressDefend = require('../index');
-  	expressDefend.blacklistCandidates = [];
-  });
-
-  it('is detected', function() {
-
-  	// Arrange
-	var interceptor = expressDefend.protect({ consoleLogging: false, dropSuspiciousRequest: true, maxAttempts: 1 });
-	var request = getMaliciousRequest();
-	request.originalUrl = '/?page.html?name=../../etc/passwd';
-
-	// Act
-    interceptor(request, responseMock, nextMock);
-
-    // Assert
-	expect(nextMockInvoked).toBe(false);
-  });
-});
-
 describe("Cross Site Scripting", function() {
  
   beforeEach(function() { 
