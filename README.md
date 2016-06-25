@@ -9,7 +9,15 @@ http://<your website>/page.html?name=<script>alert('hello world')</script>
 http://<your website>/page.html?path=../../etc/passwd
 ```
 
-... and possibly blocks further suspicious requests from attacker's host, and notifies you - based on configuration.
+Once a possible security threat is detected by express-defend, you can block all other requests sent from the attacker. If file logging is enabled, you can check the logfile and see how attackers try to find a security vulnerabilties on your server (it makes sense to see it, there might be real issues as well).
+
+
+Current implementation supports the followings:<br/>
+* Cross Site Scripting detection
+* Path Traversal detection
+* SQL Injection detection
+
+Please note that this module will never be able to detect security threats with 100% precision. The goal of this project is to catch the very first 'obvious' attempts, if possible.
 
 # Usage
 
