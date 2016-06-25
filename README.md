@@ -17,7 +17,7 @@ Current implementation supports the followings:<br/>
 * Path Traversal detection
 * SQL Injection detection
 
-Please note that this module will never be able to detect security threats with 100% precision. The goal of this project is to catch the very first 'obvious' attempts, if possible.
+Please note that this module will never be able to detect security threats with 100% precision. The goal of this project is to catch and report the very first 'obvious' attempts, if possible.
 
 # Usage
 
@@ -40,9 +40,16 @@ app.use(expressDefend.protect({
 }));
 ```
 
-Above example in action
+Content of 'suspicious.log' (after sending demo requests)
 
-![Screenshot](https://raw.githubusercontent.com/akos-sereg/express-defend/master/doc/sample.png "Above example in action")
+```
+Suspicious Request /page.html?path=../../../etc/passwd, fragment is on blacklist (Path Traversal): "../"" from ::ffff:192.168.1.121
+Suspicious Request /page.html?path=../../etc/passwd, fragment is on blacklist (Path Traversal): "../"" from ::ffff:192.168.1.121
+Suspicious Request /page.html?path=../etc/passwd, fragment is on blacklist (Path Traversal): "../"" from ::ffff:192.168.1.121
+Suspicious Request /page.html?name=%3Cscript%3Ealert(%27xss%27)%3C/script%3E, fragment is on blacklist (Reflected XSS): "<script"" from ::ffff:192.168.1.121
+Suspicious Request /page.html?name=%27%20or%201=1, fragment is on blacklist (SQL Injection): "or 1=1"" from ::ffff:192.168.1.121, reached threshold (5)
+Dropping request /page.html?name=%27%20or%201=1 from ::ffff:192.168.1.121 
+```
 
 Please note that only suspicious traffic will be dropped from a malicious host when "dropSuspiciousRequest" is enabled. 
 If you want to put the host on blacklist on your server, you might want to use this module with [express-blacklist](https://github.com/akos-sereg/express-blacklist).
