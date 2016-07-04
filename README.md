@@ -1,4 +1,6 @@
-# express-defend [![Build Status](https://travis-ci.org/akos-sereg/express-defend.png)](https://travis-ci.org/akos-sereg/express-defend)
+# express-defend 
+[![npm](https://img.shields.io/npm/v/express-defend.svg?style=flat)](https://npmjs.com/package/express-defend)
+[![Build Status](https://travis-ci.org/akos-sereg/express-defend.png)](https://travis-ci.org/akos-sereg/express-defend) 
 
 [![NPM](https://nodei.co/npm/express-defend.png?downloads=true&stars=true)](https://nodei.co/npm/express-defend/)
 

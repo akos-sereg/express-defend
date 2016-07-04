@@ -1,6 +1,6 @@
 {
   "name": "express-defend",
-  "description": "Express middleware that detects malicious requests, like XSS or Path Traversal",
+  "description": "Express middleware that detects malicious requests",
   "author": {
     "name": "Akos Sereg",
     "email": "akos.sereg@gmail.com"
@@ -22,8 +22,9 @@
   "keywords": [
     "express",
     "xss",
-    "cross-site-scripting",
-    "cross site scripting"
+    "security",
+    "sql injection",
+    "path traversal"
   ],
   "bugs": {
     "url": "https://github.com/akos-sereg/express-defend/issues"
